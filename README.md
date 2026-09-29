@@ -11,4 +11,4 @@ npm run build    # type-check + production build to dist/
 Sections: Hero → Marquee → About → Services → Projects.
 Reusable components live in `src/components` (`FadeIn`, `Magnet`, `AnimatedText`, `ContactButton`, `LiveProjectButton`).
 
-The older Influencer-Gear static site lives in `influencer-gear/` (open `influencer-gear/index.html` directly in a browser).
+The `influencer-gear/` folder keeps the images, logos and stylesheet from the older Influencer-Gear site.
