@@ -1,6 +1,14 @@
 import FadeIn from './FadeIn';
 import AnimatedText from './AnimatedText';
 import ContactButton from './ContactButton';
+import LiveProjectButton from './LiveProjectButton';
+import { bio, experiences, projects } from '../data/portfolio';
+
+const STATS = [
+  { value: `${bio.yearsOfExperience}+`, label: 'Years experience' },
+  { value: `${projects.length}+`, label: 'Projects shipped' },
+  { value: `${experiences.length}`, label: 'Companies' },
+];
 
 const BASE = 'https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7';
 
@@ -30,9 +38,6 @@ const DECORATIONS = [
     x: 80,
   },
 ];
-
-const ABOUT_TEXT =
-  "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!";
 
 export default function AboutSection() {
   return (
@@ -64,13 +69,39 @@ export default function AboutSection() {
               About me
             </h2>
           </FadeIn>
+          <FadeIn delay={0.1} y={20}>
+            <p
+              className="max-w-[720px] text-center font-light uppercase tracking-wide text-[#D7E2EA]/70"
+              style={{ fontSize: 'clamp(0.85rem, 1.4vw, 1.1rem)' }}
+            >
+              {bio.headline}
+            </p>
+          </FadeIn>
           <AnimatedText
-            text={ABOUT_TEXT}
+            text={bio.description}
             className="max-w-[560px] text-center font-medium leading-relaxed text-[#D7E2EA]"
             style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
           />
         </div>
-        <ContactButton />
+        <div className="grid grid-cols-3 gap-6 sm:gap-12 md:gap-16">
+          {STATS.map((stat, i) => (
+            <FadeIn key={stat.label} delay={i * 0.1} y={20} className="text-center">
+              <div
+                className="hero-heading font-black leading-none"
+                style={{ fontSize: 'clamp(2.5rem, 7vw, 96px)' }}
+              >
+                {stat.value}
+              </div>
+              <div className="mt-2 text-xs sm:text-sm font-light uppercase tracking-widest text-[#D7E2EA]/70">
+                {stat.label}
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+          <ContactButton />
+          <LiveProjectButton href={bio.resume} label="View Resume" />
+        </div>
       </div>
     </section>
   );

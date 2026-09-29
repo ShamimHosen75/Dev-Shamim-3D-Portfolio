@@ -1,47 +1,9 @@
 import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
 import { useRef } from 'react';
 import FadeIn from './FadeIn';
+import { Github } from 'lucide-react';
 import LiveProjectButton from './LiveProjectButton';
-
-const img = (id: string) =>
-  `https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2F${id}.png&w=1280&q=85`;
-
-interface Project {
-  name: string;
-  category: string;
-  col1: [string, string];
-  col2: string;
-}
-
-const PROJECTS: Project[] = [
-  {
-    name: 'Nextlevel Studio',
-    category: 'Client',
-    col1: [
-      img('hf_20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db'),
-      img('hf_20260412_055431_11d841fd-8b41-46a5-82e4-b04f2407a7d8'),
-    ],
-    col2: img('hf_20260412_055451_e317bf2d-28d4-48cc-86b0-6f72f25b6327'),
-  },
-  {
-    name: 'Aura Brand Identity',
-    category: 'Personal',
-    col1: [
-      img('hf_20260412_055654_911201c5-36d9-4bc6-bac7-331adfce159f'),
-      img('hf_20260412_055723_5ceda0b8-d9c2-4665-b2e3-83ba19ba76d1'),
-    ],
-    col2: img('hf_20260412_055753_adc5dcbd-a8e6-49c0-b43a-9b030d835cea'),
-  },
-  {
-    name: 'Solaris Digital',
-    category: 'Client',
-    col1: [
-      img('hf_20260412_055759_963cfb0b-4bd1-4b0f-9d0a-09bd6cf95b2f'),
-      img('hf_20260412_060108_438f781a-9846-4dcc-89ab-c4e6cb830f5b'),
-    ],
-    col2: img('hf_20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee'),
-  },
-];
+import { projects, type Project } from '../data/portfolio';
 
 const RADIUS = 'rounded-[40px] sm:rounded-[50px] md:rounded-[60px]';
 
@@ -65,53 +27,67 @@ function ProjectCard({
         className={`relative w-full origin-top border-2 border-[#D7E2EA] p-4 sm:p-6 md:p-8 ${RADIUS}`}
         style={{ background: '#0C0C0C', scale, top: `${index * 28}px` }}
       >
-        <div className="mb-4 sm:mb-6 md:mb-8 flex flex-wrap items-center justify-between gap-4 px-2 sm:px-4">
-          <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
-            <span
-              className="hero-heading font-black leading-none"
-              style={{ fontSize: 'clamp(3rem, 10vw, 140px)' }}
-            >
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <div className="flex flex-col gap-1">
-              <span className="text-xs sm:text-sm md:text-base font-light uppercase tracking-widest text-[#D7E2EA] opacity-60">
-                {project.category}
-              </span>
-              <h3
-                className="font-medium uppercase text-[#D7E2EA]"
-                style={{ fontSize: 'clamp(1rem, 2.2vw, 2.1rem)' }}
-              >
-                {project.name}
-              </h3>
-            </div>
+        <div className="flex flex-col gap-6 md:flex-row md:gap-8">
+          <div className="md:w-[58%]">
+            <img
+              src={project.image}
+              alt={`${project.title} preview`}
+              loading="lazy"
+              className={`w-full object-cover object-top ${RADIUS}`}
+              style={{ height: 'clamp(200px, 38vw, 480px)' }}
+            />
           </div>
-          <LiveProjectButton />
-        </div>
 
-        <div className="flex gap-3 sm:gap-4">
-          <div className="flex w-[40%] flex-col gap-3 sm:gap-4">
-            <img
-              src={project.col1[0]}
-              alt={`${project.name} preview 1`}
-              loading="lazy"
-              className={`w-full object-cover ${RADIUS}`}
-              style={{ height: 'clamp(130px, 16vw, 230px)' }}
-            />
-            <img
-              src={project.col1[1]}
-              alt={`${project.name} preview 2`}
-              loading="lazy"
-              className={`w-full object-cover ${RADIUS}`}
-              style={{ height: 'clamp(160px, 22vw, 340px)' }}
-            />
-          </div>
-          <div className="w-[60%]">
-            <img
-              src={project.col2}
-              alt={`${project.name} main preview`}
-              loading="lazy"
-              className={`h-full w-full object-cover ${RADIUS}`}
-            />
+          <div className="flex flex-col gap-4 sm:gap-5 px-2 sm:px-4 md:w-[42%] md:px-0 md:py-4">
+            <div className="flex items-center gap-4 sm:gap-6">
+              <span
+                className="hero-heading font-black leading-none"
+                style={{ fontSize: 'clamp(3rem, 8vw, 120px)' }}
+              >
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div className="flex flex-col gap-1">
+                <span className="text-xs sm:text-sm font-light uppercase tracking-widest text-[#D7E2EA] opacity-60">
+                  {project.category} · {project.date}
+                </span>
+                <h3
+                  className="font-medium uppercase leading-tight text-[#D7E2EA]"
+                  style={{ fontSize: 'clamp(1.1rem, 2.2vw, 2rem)' }}
+                >
+                  {project.title}
+                </h3>
+              </div>
+            </div>
+
+            <p className="line-clamp-4 text-sm sm:text-base font-light leading-relaxed text-[#D7E2EA] opacity-70">
+              {project.description}
+            </p>
+
+            <ul className="flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="rounded-full border border-[#D7E2EA]/20 px-3 py-1 text-xs font-light text-[#D7E2EA]/80"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-auto flex flex-wrap items-center gap-3">
+              {project.liveLink && <LiveProjectButton href={project.liveLink} />}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.title} source code on GitHub`}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] transition-colors hover:bg-[#D7E2EA] hover:text-[#0C0C0C]"
+                >
+                  <Github size={18} />
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </motion.article>
@@ -137,17 +113,17 @@ export default function ProjectsSection() {
           className="hero-heading mb-16 sm:mb-20 md:mb-28 text-center font-black uppercase leading-none tracking-tight"
           style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
         >
-          Project
+          Projects
         </h2>
       </FadeIn>
 
       <div ref={containerRef} className="mx-auto max-w-7xl">
-        {PROJECTS.map((project, i) => (
+        {projects.map((project, i) => (
           <ProjectCard
-            key={project.name}
+            key={project.title}
             project={project}
             index={i}
-            total={PROJECTS.length}
+            total={projects.length}
             progress={scrollYProgress}
           />
         ))}

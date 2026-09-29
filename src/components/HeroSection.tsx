@@ -1,11 +1,10 @@
 import FadeIn from './FadeIn';
 import Magnet from './Magnet';
 import ContactButton from './ContactButton';
+import profileImage from '../assets/profile.png';
+import { bio } from '../data/portfolio';
 
-const NAV_LINKS = ['About', 'Price', 'Projects', 'Contact'];
-
-const PORTRAIT_URL =
-  'https://shrug-person-78902957.figma.site/_components/v2/d24c01ad3a56fc65e942a1f501eb73db42d7cf9a/Rectangle_40443.81459862.png';
+const NAV_LINKS = ['About', 'Skills', 'Projects', 'Experience', 'Contact'];
 
 export default function HeroSection() {
   return (
@@ -14,12 +13,12 @@ export default function HeroSection() {
       style={{ background: '#0C0C0C', overflowX: 'clip' }}
     >
       <FadeIn as="nav" delay={0} y={-20} className="px-6 md:px-10 pt-6 md:pt-8">
-        <ul className="flex justify-between">
+        <ul className="flex justify-between gap-3">
           {NAV_LINKS.map((link) => (
             <li key={link}>
               <a
                 href={`#${link.toLowerCase()}`}
-                className="text-sm md:text-lg lg:text-[1.4rem] font-medium uppercase tracking-wider text-[#D7E2EA] transition-opacity duration-200 hover:opacity-70"
+                className="text-[11px] sm:text-sm md:text-lg lg:text-[1.4rem] font-medium uppercase tracking-wide sm:tracking-wider text-[#D7E2EA] transition-opacity duration-200 hover:opacity-70"
               >
                 {link}
               </a>
@@ -31,7 +30,7 @@ export default function HeroSection() {
       <div className="overflow-hidden">
         <FadeIn delay={0.15} y={40}>
           <h1 className="hero-heading mt-6 sm:mt-4 md:-mt-5 w-full whitespace-nowrap text-center font-black uppercase leading-none tracking-tight text-[14vw] sm:text-[15vw] md:text-[16vw] lg:text-[17.5vw]">
-            Hi, i&apos;m jack
+            Hi, i&apos;m shamim
           </h1>
         </FadeIn>
       </div>
@@ -42,7 +41,7 @@ export default function HeroSection() {
             className="max-w-[160px] sm:max-w-[220px] md:max-w-[260px] font-light uppercase leading-snug tracking-wide text-[#D7E2EA]"
             style={{ fontSize: 'clamp(0.75rem, 1.4vw, 1.5rem)' }}
           >
-            a 3d creator driven by crafting striking and unforgettable projects
+            a web developer building high-quality websites that grow your business
           </p>
         </FadeIn>
         <FadeIn delay={0.5} y={20} className="relative z-20">
@@ -59,9 +58,13 @@ export default function HeroSection() {
             inactiveTransition="transform 0.6s ease-in-out"
           >
             <img
-              src={PORTRAIT_URL}
-              alt="Shamim portrait"
-              className="block h-auto w-full select-none"
+              src={profileImage}
+              alt={bio.name}
+              className="block h-auto w-full select-none rounded-t-full"
+              style={{
+                maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
+              }}
               draggable={false}
             />
           </Magnet>
